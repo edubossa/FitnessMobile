@@ -1,0 +1,70 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ews.fitnessmobile.fragments.UnitsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10sp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgAcademia"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fitness_logo"
+            />
+
+        <TextView
+            android:id="@+id/tvNome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:textSize="14sp"
+            android:textColor="#616161"
+            tools:text="ACADEMIA RUNNER"/>
+
+        <TextView
+            android:id="@+id/tvCidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#D50000"
+            tools:text="BUTANTÃ CLUB"/>
+
+        <TextView
+            android:id="@+id/tvEndereco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginBottom="16sp"
+            tools:text="Av. Dr. Cândido Motta Filho, 731 - Butantã/Vila São Francisco - São Paulo"/>
+
+        <TextView
+            android:id="@+id/tvHorarioFuncionamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="De segunda a sexta-feira, das 6h às 23h; Sábado das 9h às 18h; Domingos e Feriados das 10h às 17h."/>
+
+        <TextView
+            android:id="@+id/tvTelefone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="(11) 5093-6662 / (11) 5093-6664"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

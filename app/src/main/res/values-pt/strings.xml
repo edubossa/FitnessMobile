@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FitnessMobile</string>
+    <string name="hint_username">Usuário</string>
+    <string name="hint_password">Senha</string>
+    <string name="tx_login">Entrar</string>
+    <string name="tx_keep_connected">Manter Conectado</string>
+    <string name="title_activity_main">Fitness</string>
+    <string name="navigation_drawer_close">Fechar gaveta de navegação</string>
+    <string name="navigation_drawer_open">Abrir a gaveta de navegação</string>
+    <string name="action_settings">Adicionar</string>
+    <string name="menu_units">Unidades</string>
+    <string name="menu_student">Alunos</string>
+    <string name="menu_training">Meus Treinos</string>
+    <string name="menu_account">Minha Conta</string>
+    <string name="menu_about">Sobre Fitness Mobile</string>
+    <string name="menu_exit">Sair</string>
+    <string name="tx_credentials_invalid">Credenciais Inválidas</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_city">Cidade</string>
+    <string name="hint_address">Endereço</string>
+    <string name="hint_phone">Telefone</string>
+    <string name="hint_schedule_operation">Horário de Funcionamento</string>
+    <string name="hint_latitude">Latitude</string>
+    <string name="hint_longitude">Longitude</string>
+    <string name="send">enviar</string>
+</resources>

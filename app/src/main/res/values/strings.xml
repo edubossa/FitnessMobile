@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">FitnessMobile</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="tx_login">Login</string>
+    <string name="title_activity_main">Fitness</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Add</string>
+    <string name="tx_keep_connected">Keep Connected</string>
+    <string name="menu_units">Units</string>
+    <string name="menu_student">Student</string>
+    <string name="menu_training">My Trainning</string>
+    <string name="menu_account">My Account</string>
+    <string name="menu_about">About Fitness Mobile</string>
+    <string name="menu_exit">Exit</string>
+    <string name="tx_credentials_invalid">Credentials Invalid</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hint_name">Name</string>
+    <string name="hint_city">City</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_schedule_operation">Schedule Operation</string>
+    <string name="hint_latitude">Latitude</string>
+    <string name="hint_longitude">Longitude</string>
+    <string name="send">send</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>
