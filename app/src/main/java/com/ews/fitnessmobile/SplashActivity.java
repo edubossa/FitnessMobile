@@ -68,7 +68,7 @@ public class SplashActivity extends AppCompatActivity {
 
                         @Override
                         public void onNext(Login login) {
-                            Login l = loginDAO.getByUsername(login.getUsername());
+                            Login l = loginDAO.getLogin(login);
                             if (l == null) {
                                 String response = loginDAO.add(login);
                                 Log.d(TAG_LOG, response);

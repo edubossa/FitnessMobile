@@ -49,18 +49,19 @@ public class LoginDAO {
         return logins;
     }
 
-    public Login getByUsername(String username) { //TODO insertOrUpdate validacao Usuario e senha
+    public Login getLogin(Login login) {
         SQLiteDatabase database = this.db.getReadableDatabase();
         String columns[] = {COLUMN_USERNAME, COLUMN_PASSWORD};
-        String where = COLUMN_USERNAME + " = '" + username + "'";
+        String where = COLUMN_USERNAME + " = '" + login.getUsername()
+            + "' and " + COLUMN_PASSWORD + " = '" + login.getPassword() + "'";
         Cursor cursor = database.query(true, TABLE, columns, where, null, null, null, null, null);
-        Login login = null;
+        Login l = null;
         if (cursor.moveToFirst()) {
-            login = new Login();
-            login.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME)));
-            login.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD)));
+            l = new Login();
+            l.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME)));
+            l.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD)));
         }
-        return login;
+        return l;
     }
 
 }

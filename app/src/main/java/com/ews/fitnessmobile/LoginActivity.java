@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isLoginValid() {
-        this.login = loginDAO.getByUsername(login.getUsername());
+        this.login = loginDAO.getLogin(login);
         return login != null;
     }
 
