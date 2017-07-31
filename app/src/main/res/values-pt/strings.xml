@@ -24,4 +24,6 @@
     <string name="hint_latitude">Latitude</string>
     <string name="hint_longitude">Longitude</string>
     <string name="send">enviar</string>
+    <string name="developer">Desenvolvedor: Eduardo Wallace</string>
+    <string name="version">Versão: 1.0</string>
 </resources>

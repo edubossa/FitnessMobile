@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ews.fitnessmobile.fragments.AboutFragment;
 import com.ews.fitnessmobile.fragments.StudentFragment;
 import com.ews.fitnessmobile.fragments.UnitsAddFragment;
 import com.ews.fitnessmobile.fragments.UnitsFragment;
@@ -136,19 +137,17 @@ public class MainActivity extends AppCompatActivity
         switch (menu) {
             case UNITS:
                 Log.d(TAG_LOG, "Menu Units Selected !");
-                UnitsFragment unitsFragment = new UnitsFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_main, unitsFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main, new UnitsFragment())
+                    .addToBackStack(null)
+                    .commit();
                 break;
             case STUDENT:
                 Log.d(TAG_LOG, "Menu Student Selected !");
-                StudentFragment studentFragments = new StudentFragment();
-                FragmentTransaction tx =  getSupportFragmentManager().beginTransaction();
-                tx.replace(R.id.content_main, studentFragments);
-                tx.addToBackStack(null);
-                tx.commit();
+                getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main, new StudentFragment())
+                    .addToBackStack(null)
+                    .commit();
                 break;
             case TRAINING:
                 Log.d(TAG_LOG, "Menu Treino Selected !");
@@ -158,6 +157,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case ABOUT:
                 Log.d(TAG_LOG, "Menu About Selected !");
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_main, new AboutFragment())
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case EXIT:
                 Log.d(TAG_LOG, "Menu Exit Selected !");
