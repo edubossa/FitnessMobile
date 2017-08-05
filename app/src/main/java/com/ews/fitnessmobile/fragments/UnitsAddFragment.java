@@ -1,6 +1,7 @@
 package com.ews.fitnessmobile.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ews.fitnessmobile.MainActivity;
 import com.ews.fitnessmobile.R;
 import com.ews.fitnessmobile.dao.UnidadeDAO;
 import com.ews.fitnessmobile.model.Unidade;
@@ -33,6 +35,7 @@ public class UnitsAddFragment extends Fragment {
 
     public UnitsAddFragment() {
         // Required empty public constructor
+        MainActivity.fabAdd.setVisibility(FloatingActionButton.INVISIBLE);
     }
 
     @Override

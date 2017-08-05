@@ -1,15 +1,27 @@
 package com.ews.fitnessmobile.adapter;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ews.fitnessmobile.R;
+import com.ews.fitnessmobile.fragments.UnitsAddFragment;
+import com.ews.fitnessmobile.fragments.UnitsFragment;
 import com.ews.fitnessmobile.model.Unidade;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,11 +31,13 @@ import java.util.List;
 public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapterViewHolder> {
 
     private List<Unidade> unidades;
-    private OnItemClickListener listener;
+    private Context ctx;
+    private FragmentManager fragmentManager;
 
-    public UnitsAdapter(List<Unidade> unidades, OnItemClickListener listener) {
+    public UnitsAdapter(List<Unidade> unidades, Context ctx, FragmentManager fragmentManager) {
         this.unidades = unidades;
-        this.listener = listener;
+        this.ctx = ctx;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -33,14 +47,8 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
     }
 
     @Override
-    public void onBindViewHolder(UnitsAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(final UnitsAdapterViewHolder holder, int position) {
         final Unidade unidade = this.unidades.get(position);
-
-        /*Picasso.with(holder.itemView.getContext())
-                .load(unidade.getUrlImagem())
-                .placeholder(R.mipmap.ic_launcher) //load enquanto carrega a imagem
-                .error(R.mipmap.ic_launcher) //TODO rever caso nao carregue a imagem colocar outro icone
-                .into(holder.imgAcademia);*/
 
         holder.tvNome.setText(unidade.getNome());
         holder.tvCidade.setText(unidade.getCidade());
@@ -48,12 +56,60 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
         holder.tvHorarioFuncionamento.setText(unidade.getHorarioFuncionamento());
         holder.tvTelefone.setText(unidade.getTelefone());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.imgViewOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(unidade);
+
+                PopupMenu popup = new PopupMenu(ctx, holder.imgViewOptions);
+                popup.inflate(R.menu.unit_menu);
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+
+                            case R.id.menuAlter:
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable(UnitsFragment.PUT_UNIT, unidade);
+                                UnitsAddFragment unitsFragment = new UnitsAddFragment();
+                                unitsFragment.setArguments(bundle);
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_main, unitsFragment)
+                                        .addToBackStack(null)
+                                        .commit();
+                                break;
+                            case R.id.menuDelete:
+                                Toast.makeText(ctx.getApplicationContext(), "Menu Delete Selected", Toast.LENGTH_SHORT).show();
+                                break;
+
+                            case R.id.menuCall:
+                                Intent intentCall = new Intent(Intent.ACTION_CALL);
+                                String phoneNumber = unidade.getTelefone().replaceAll("\\D", "");
+                                intentCall.setData(Uri.parse("tel:" + phoneNumber));
+                                if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                    return false;
+                                }
+                                ctx.startActivity(intentCall);
+                                break;
+
+                            case R.id.menuShare :
+                                Intent intentShare = new Intent();
+                                intentShare.setAction(Intent.ACTION_SEND);
+                                intentShare.putExtra(Intent.EXTRA_TEXT, unidade.toString());
+                                intentShare.setType("text/plain");
+                                ctx.startActivity(intentShare);
+                                break;
+                        }
+
+                        return false;
+                    }
+                });
+
+                popup.show();
             }
         });
+
     }
 
     @Override
@@ -68,21 +124,23 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
 
     static class UnitsAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        final ImageView imgAcademia;
+        //final ImageView imgAcademia;
         final TextView tvNome;
         final TextView tvCidade;
         final TextView tvEndereco;
         final TextView tvHorarioFuncionamento;
         final TextView tvTelefone;
+        final ImageView imgViewOptions;
 
         public UnitsAdapterViewHolder(View itemView) {
             super(itemView);
-            this.imgAcademia = (ImageView) itemView.findViewById(R.id.imgAcademia);
+            //this.imgAcademia = (ImageView) itemView.findViewById(R.id.imgAcademia);
             this.tvNome = (TextView) itemView.findViewById(R.id.tvNome);
             this.tvCidade = (TextView) itemView.findViewById(R.id.tvCidade);
             this.tvEndereco = (TextView) itemView.findViewById(R.id.tvEndereco);
             this.tvHorarioFuncionamento = (TextView) itemView.findViewById(R.id.tvHorarioFuncionamento);
             this.tvTelefone = (TextView) itemView.findViewById(R.id.tvTelefone);
+            this.imgViewOptions = (ImageView) itemView.findViewById(R.id.imgViewOptions);
         }
 
     }

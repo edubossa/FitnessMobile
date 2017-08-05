@@ -31,6 +31,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="developer">Developer: Eduardo Wallace</string>
     <string name="version">Version: 1.0</string>
+    <string name="menu_alter">Alter</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_call">Call</string>
+    <string name="menu_share">Share</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

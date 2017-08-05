@@ -135,17 +135,11 @@ public class Unidade  implements Parcelable{
 
     @Override
     public String toString() {
-        return "Unidade{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", horarioFuncionamento='" + horarioFuncionamento + '\'' +
-                ", urlImagem='" + urlImagem + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                '}';
+        return  nome + "\n" +
+                cidade + "\n" +
+                endereco + "\n" +
+                horarioFuncionamento + "\n" +
+                telefone;
     }
 
 }

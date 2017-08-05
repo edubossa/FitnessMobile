@@ -26,4 +26,8 @@
     <string name="send">enviar</string>
     <string name="developer">Desenvolvedor: Eduardo Wallace</string>
     <string name="version">Versão: 1.0</string>
+    <string name="menu_alter">Alterar</string>
+    <string name="menu_delete">Deletar</string>
+    <string name="menu_call">Ligar</string>
+    <string name="menu_share">Compartilhar</string>
 </resources>

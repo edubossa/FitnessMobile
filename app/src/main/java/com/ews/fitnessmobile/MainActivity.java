@@ -3,6 +3,7 @@ package com.ews.fitnessmobile;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ews.fitnessmobile.fragments.AboutFragment;
 import com.ews.fitnessmobile.fragments.StudentFragment;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity
 
     private Login login;
 
+    public static FloatingActionButton fabAdd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +42,17 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fabAdd.setVisibility(FloatingActionButton.INVISIBLE);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_main, new UnitsAddFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
-        });*/
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -101,8 +108,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if (this.login.getRole().equals(Role.ADMIN)) {
-            getMenuInflater().inflate(R.menu.main, menu);
+        if (!this.login.getRole().equals(Role.ADMIN)) {
+            //getMenuInflater().inflate(R.menu.main, menu);
+            fabAdd.setVisibility(FloatingActionButton.INVISIBLE);
         }
         return true;
     }
@@ -116,12 +124,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_main, new UnitsAddFragment())
-                    .addToBackStack(null)
-                    .commit();
-
             return true;
         }
 

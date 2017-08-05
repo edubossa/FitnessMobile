@@ -27,7 +27,7 @@ public class LoginDAO {
     public String add(Login login) {
         SQLiteDatabase database = this.db.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_USERNAME, login.getUsername());
+        values.put(COLUMN_USERNAME, login.getUsername().toLowerCase());
         values.put(COLUMN_PASSWORD, login.getPassword());
         long result = database.insert(TABLE, null, values);
         database.close();
@@ -52,8 +52,8 @@ public class LoginDAO {
     public Login getLogin(Login login) {
         SQLiteDatabase database = this.db.getReadableDatabase();
         String columns[] = {COLUMN_USERNAME, COLUMN_PASSWORD};
-        String where = COLUMN_USERNAME + " = '" + login.getUsername()
-            + "' and " + COLUMN_PASSWORD + " = '" + login.getPassword() + "'";
+        String where = COLUMN_USERNAME + " = '" + login.getUsername().toLowerCase().trim()
+            + "' and " + COLUMN_PASSWORD + " = '" + login.getPassword().trim() + "'";
         Cursor cursor = database.query(true, TABLE, columns, where, null, null, null, null, null);
         Login l = null;
         if (cursor.moveToFirst()) {
