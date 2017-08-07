@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
             bundle.putString("ERROR", getResources().getString(R.string.tx_credentials_invalid));
         }
         bundle.putString("TYPE_LOGIN", "APPLICATION");
-        firebaseAnalytics.logEvent("onSuccess", bundle);
+        firebaseAnalytics.logEvent("login", bundle);
     }
 
 
