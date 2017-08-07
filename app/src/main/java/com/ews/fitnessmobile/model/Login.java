@@ -20,6 +20,7 @@ public class Login implements Parcelable {
     @Expose(serialize = false, deserialize = false)
     private Role role;
 
+    @Expose(serialize = false, deserialize = false)
     private Boolean isLoginFacebook = Boolean.FALSE;
 
     public Login() {}
