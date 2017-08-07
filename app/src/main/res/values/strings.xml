@@ -36,5 +36,8 @@
     <string name="menu_call">Call</string>
     <string name="menu_share">Share</string>
 
+    <string name="facebook_app_id" translatable="false">1264908870286188</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1264908870286188</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -12,10 +12,21 @@ import android.widget.Toast;
 
 import com.ews.fitnessmobile.dao.LoginDAO;
 import com.ews.fitnessmobile.model.Login;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
+
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,18 +50,78 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.cbKeepConnected)
     CheckBox cbKeepConnected;
 
+    @BindView(R.id.loginFacebook)
+    LoginButton loginButton;
+
+    CallbackManager callbackManager;
+
+    private FirebaseAnalytics firebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+
+        //-------- TODO Utilizado pq eu quero enviar dados pro analitic manualmente
+        this.firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        //se cadastrando em um topico de forma fixa
+        FirebaseMessaging.getInstance().subscribeToTopic("fitness");
+        //-------------------
+
         this.loginDAO = new LoginDAO(this);
         this.sharedPreferences = getSharedPreferences(KEY_APP_PREFERENCES, MODE_PRIVATE);
 
         if (isConnected()) {
             initApp();
         }
+
+        loginButton.setReadPermissions("email");
+        callbackManager = CallbackManager.Factory.create();
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                login = new Login("FACEBOOK", loginResult.getAccessToken().getToken(), true);
+                keepConnected();
+                initApp();
+                // App code
+                Log.d(TAG_LOG, "onSuccess AccessToken --> " + loginResult.getAccessToken().getToken());
+                Bundle bundle = new Bundle();
+                bundle.putString("TYPE_LOGIN", "FACEBOOK");
+                firebaseAnalytics.logEvent("onSuccess", bundle);
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                Log.d(TAG_LOG, "onCancel");
+                Bundle bundle = new Bundle();
+                bundle.putString("TYPE_LOGIN", "FACEBOOK");
+                firebaseAnalytics.logEvent("onCancel", bundle);
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.e(TAG_LOG, exception.getMessage());
+                Bundle bundle = new Bundle();
+                bundle.putString("TYPE_LOGIN", "FACEBOOK");
+                bundle.putString("ERROR", exception.getMessage());
+                firebaseAnalytics.logEvent("onError", bundle);
+            }
+        });
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     private boolean isLoginValid() {
@@ -69,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isConnected() {
         String json = this.sharedPreferences.getString(KEY_LOGIN, "");
         if (!json.equals("")) this.login = gson.fromJson(json, Login.class);
-        return !json.equals("");
+        return !json.equals("") || AccessToken.getCurrentAccessToken() != null;
     }
 
     private void initApp() {
@@ -81,13 +152,29 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(View view) {
         Log.d(TAG_LOG, "login");
+        Bundle bundle = new Bundle();
         this.login = new Login(this.etUsername.getText().toString(), this.etPassword.getText().toString());
         if (isLoginValid()) {
             if (cbKeepConnected.isChecked()) keepConnected();
             initApp();
         } else {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.tx_credentials_invalid), Toast.LENGTH_SHORT).show();
+            bundle.putString("ERROR", getResources().getString(R.string.tx_credentials_invalid));
         }
+        bundle.putString("TYPE_LOGIN", "APPLICATION");
+        firebaseAnalytics.logEvent("onSuccess", bundle);
     }
 
+
+
+    //TODO BOTAO PRA TEST NO ANALITIC
+    public void crashFirebase(View view) {
+        int n = 2 / 0;
+    }
+
+    public void testFirebase(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("TOKEN", UUID.randomUUID().toString());
+        firebaseAnalytics.logEvent("testFirebase", bundle);
+    }
 }

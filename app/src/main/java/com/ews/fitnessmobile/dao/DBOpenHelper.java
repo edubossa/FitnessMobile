@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
 public class DBOpenHelper extends SQLiteOpenHelper {
 
     private static final String BD_NAME = "fitness.db";
-    private static final int VERSION_BD = 6;
+    private static final int VERSION_BD = 1;
 
     private Context ctx;
 

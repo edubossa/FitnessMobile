@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "730752037258",
+    "firebase_url": "https://fitnessmobile-12fed.firebaseio.com",
+    "project_id": "fitnessmobile-12fed",
+    "storage_bucket": "fitnessmobile-12fed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730752037258:android:414db241920075fc",
+        "android_client_info": {
+          "package_name": "com.ews.fitnessmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730752037258-q6ipblu19qpu9d2hd3lcmgkpa5v7c3j1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAliraz3SXQl6ZqmHOpsQA9FwJwIwyCSxM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

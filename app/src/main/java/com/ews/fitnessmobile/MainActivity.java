@@ -23,8 +23,10 @@ import com.ews.fitnessmobile.fragments.UnitsFragment;
 import com.ews.fitnessmobile.model.Login;
 import com.ews.fitnessmobile.model.MenuNavigationView;
 import com.ews.fitnessmobile.model.Role;
+import com.facebook.login.LoginManager;
 
 import static com.ews.fitnessmobile.model.MenuNavigationView.UNITS;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -165,6 +167,7 @@ public class MainActivity extends AppCompatActivity
                         .commit();
                 break;
             case EXIT:
+                LoginManager.getInstance().logOut();
                 Log.d(TAG_LOG, "Menu Exit Selected !");
                 SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.KEY_APP_PREFERENCES, MODE_PRIVATE);
                 boolean commit =sharedPreferences.edit().remove(LoginActivity.KEY_LOGIN).commit();

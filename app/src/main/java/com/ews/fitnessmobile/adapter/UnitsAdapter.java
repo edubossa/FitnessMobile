@@ -25,6 +25,8 @@ import com.ews.fitnessmobile.model.Unidade;
 
 import java.util.List;
 
+
+
 /**
  * Created by wallace on 14/07/17.
  */
@@ -88,7 +90,7 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
                                 String phoneNumber = unidade.getTelefone().replaceAll("\\D", "");
                                 intentCall.setData(Uri.parse("tel:" + phoneNumber));
                                 if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                                    return false;
+                                    //ActivityCompat.requestPermissions(null, new String[]{Manifest.permission.CALL_PHONE});
                                 }
                                 ctx.startActivity(intentCall);
                                 break;

@@ -20,12 +20,21 @@ public class Login implements Parcelable {
     @Expose(serialize = false, deserialize = false)
     private Role role;
 
+    private Boolean isLoginFacebook = Boolean.FALSE;
+
     public Login() {}
 
     public Login(String username, String password) {
         this.username = username;
         this.password = password;
     }
+
+    public Login(String username, String password, Boolean isLoginFacebook) {
+        this.username = username;
+        this.password = password;
+        this.isLoginFacebook = isLoginFacebook;
+    }
+
 
     protected Login(Parcel in) {
         username = in.readString();
@@ -75,12 +84,17 @@ public class Login implements Parcelable {
         return (username.equalsIgnoreCase("android")) ? Role.ADMIN : Role.USER;
     }
 
+    public Boolean getLoginFacebook() {
+        return isLoginFacebook;
+    }
+
     @Override
     public String toString() {
         return "Login{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + getRole() +
+                ", role=" + role +
+                ", isLoginFacebook=" + isLoginFacebook +
                 '}';
     }
 
