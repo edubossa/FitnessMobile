@@ -26,19 +26,19 @@ public class PopupUnitView {
 
     private final TextView tvNome;
     private final TextView tvCidade;
-    final TextView tvEndereco;
-    final TextView tvHorarioFuncionamento;
-    final TextView tvTelefone;
+    private final TextView tvEndereco;
+    private final TextView tvHorarioFuncionamento;
+    private final TextView tvTelefone;
 
     private PopupWindow popupWindow;
 
     public PopupUnitView(Context context, Marker marker, UnidadeDAO dao) {
-        Log.d(TAG, "Snippet --> " + marker.getSnippet() + " Title --> " + marker.getTitle() + " Index --> "  + marker.getZIndex());
+        Log.d(TAG, "Snippet --> " + marker.getSnippet() + " | Title --> " + marker.getTitle() + " | TAG --> "  + marker.getTag().toString());
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popup_layout_units,null);
 
-        Unidade unidade = dao.getById(new Float(marker.getZIndex()).intValue());
+        Unidade unidade = dao.getById(Integer.valueOf(marker.getTag().toString()));
 
         this.tvNome = (TextView) view.findViewById(R.id.tvNome);
         this.tvCidade = (TextView) view.findViewById(R.id.tvCidade);

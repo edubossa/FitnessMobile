@@ -14,6 +14,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -58,10 +59,11 @@ public class UnitsMapActivity extends FragmentActivity implements OnMapReadyCall
         List<Unidade> unidades = dao.getAll();
         for (Unidade u : unidades) {
             LatLng position = new LatLng(Double.valueOf(u.getLatitude()), Double.valueOf(u.getLongitude()));
-            mMap.addMarker(new MarkerOptions().position(position)
+            Marker marker = mMap.addMarker(new MarkerOptions().position(position)
                     .title(u.getCidade())
-                    .snippet(u.getNome())
-                    .zIndex(u.getId()));
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher))
+                    .snippet(u.getNome()));
+            marker.setTag(u.getId());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
         }
     }
