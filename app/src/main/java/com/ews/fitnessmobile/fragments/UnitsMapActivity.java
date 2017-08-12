@@ -2,57 +2,76 @@ package com.ews.fitnessmobile.fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 
+import com.ews.fitnessmobile.PopupUnitView;
 import com.ews.fitnessmobile.R;
+import com.ews.fitnessmobile.dao.UnidadeDAO;
+import com.ews.fitnessmobile.model.Unidade;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class UnitsMapActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.List;
+
+public class UnitsMapActivity extends FragmentActivity implements OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener {
+
+    public static final String TAG = "[FragmentActivity]";
 
     private GoogleMap mMap;
+    private UnidadeDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_units_map);
+        this.dao = new UnidadeDAO(this);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (ActivityCompat.checkSelfPermission(UnitsMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(UnitsMapActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        googleMap.setOnMarkerClickListener(this); //OBS aqui tenho que adicionar os eventos que quero interceptar de forma implicita
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney - WALLACE"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        loadUnits();
     }
+
+    private void loadUnits() {
+        List<Unidade> unidades = dao.getAll();
+        for (Unidade u : unidades) {
+            LatLng position = new LatLng(Double.valueOf(u.getLatitude()), Double.valueOf(u.getLongitude()));
+            mMap.addMarker(new MarkerOptions().position(position)
+                    .title(u.getCidade())
+                    .snippet(u.getNome())
+                    .zIndex(u.getId()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
+        }
+    }
+
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        new PopupUnitView(this, marker, dao);
+        return false;
+    }
+
+
 }

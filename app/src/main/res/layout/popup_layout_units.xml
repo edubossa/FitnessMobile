@@ -61,14 +61,13 @@
             tools:text="(11) 5093-6662"/>
 
         <ImageView
-            android:id="@+id/imgViewOptions"
+            android:id="@+id/imgClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_more_vert_black_18dp" />
-
+            android:src="@drawable/com_facebook_close" />
 
     </RelativeLayout>
 

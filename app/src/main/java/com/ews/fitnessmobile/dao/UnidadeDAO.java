@@ -83,5 +83,26 @@ public class UnidadeDAO {
         return unidades;
     }
 
+    public Unidade getById(Integer id) {
+        String sql = "SELECT * FROM " + TABLE + " WHERE id = ? ";
+        SQLiteDatabase database = this.db.getReadableDatabase();
+        String[] args = {id.toString()};
+        Cursor cursor = database.rawQuery(sql, args);
+        Unidade unidade = new Unidade();
+        if (cursor.moveToFirst()) {
+            unidade.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+            unidade.setNome(cursor.getString(cursor.getColumnIndex(COLUMN_NOME)));
+            unidade.setCidade(cursor.getString(cursor.getColumnIndex(COLUMN_CIDADE)));
+            unidade.setEndereco(cursor.getString(cursor.getColumnIndex(COLUMN_ENDERECO)));
+            unidade.setTelefone(cursor.getString(cursor.getColumnIndex(COLUMN_ENDERECO)));
+            unidade.setTelefone(cursor.getString(cursor.getColumnIndex(COLUMN_TELEFONE)));
+            unidade.setHorarioFuncionamento(cursor.getString(cursor.getColumnIndex(COLUMN_HORARIOFUNCIONAMENTO)));
+            unidade.setUrlImagem(cursor.getString(cursor.getColumnIndex(COLUMN_URL_IMAGEM)));
+            unidade.setLatitude(cursor.getString(cursor.getColumnIndex(COLUMN_LATITUDE)));
+            unidade.setLongitude(cursor.getString(cursor.getColumnIndex(COLUMN_LONGITUDE)));
+        }
+        return unidade;
+    }
+
 
 }
