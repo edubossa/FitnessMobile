@@ -20,6 +20,7 @@ import com.ews.fitnessmobile.fragments.AboutFragment;
 import com.ews.fitnessmobile.fragments.StudentFragment;
 import com.ews.fitnessmobile.fragments.UnitsAddFragment;
 import com.ews.fitnessmobile.fragments.UnitsFragment;
+import com.ews.fitnessmobile.fragments.UnitsMapActivity;
 import com.ews.fitnessmobile.model.Login;
 import com.ews.fitnessmobile.model.MenuNavigationView;
 import com.ews.fitnessmobile.model.Role;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         Menu menu = navView.getMenu();
         if (this.login.getRole().equals(Role.ADMIN)) {
             menu.add(1, UNITS.getItemId(), 1, getResources().getString(R.string.menu_units));
-            menu.add(1, MenuNavigationView.STUDENT.getItemId(), 2, getResources().getString(R.string.menu_student));
+            menu.add(1, MenuNavigationView.MAP.getItemId(), 2, getResources().getString(R.string.menu_show_map));
         } else {
             menu.add(1, MenuNavigationView.TRAINING.getItemId(), 3, getResources().getString(R.string.menu_training));
             menu.add(1, MenuNavigationView.ACCOUNT.getItemId(), 4, getResources().getString(R.string.menu_account));
@@ -146,12 +147,16 @@ public class MainActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
                 break;
-            case STUDENT:
+            case MAP:
                 Log.d(TAG_LOG, "Menu Student Selected !");
-                getSupportFragmentManager().beginTransaction()
+                /*getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_main, new StudentFragment())
                     .addToBackStack(null)
-                    .commit();
+                    .commit();*/
+
+                startActivity(new Intent(this, UnitsMapActivity.class));
+
+
                 break;
             case TRAINING:
                 Log.d(TAG_LOG, "Menu Treino Selected !");

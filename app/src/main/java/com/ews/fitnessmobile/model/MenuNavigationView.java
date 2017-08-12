@@ -10,7 +10,8 @@ public enum MenuNavigationView {
     TRAINING(12),
     ACCOUNT(13),
     ABOUT(14),
-    EXIT(15);
+    EXIT(15),
+    MAP(16);
 
     private int itemId;
 

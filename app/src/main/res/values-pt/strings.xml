@@ -30,4 +30,5 @@
     <string name="menu_delete">Deletar</string>
     <string name="menu_call">Ligar</string>
     <string name="menu_share">Compartilhar</string>
+    <string name="menu_show_map">Visualizar no Mapa</string>
 </resources>

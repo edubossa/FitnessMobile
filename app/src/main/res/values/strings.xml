@@ -38,6 +38,8 @@
 
     <string name="facebook_app_id" translatable="false">1264908870286188</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb1264908870286188</string>
+    <string name="menu_show_map">Show on Map</string>
+    <string name="title_activity_units_map">Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
