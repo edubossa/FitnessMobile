@@ -1,13 +1,15 @@
 package com.ews.fitnessmobile.adapter;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ews.fitnessmobile.R;
+import com.ews.fitnessmobile.dao.UnidadeDAO;
 import com.ews.fitnessmobile.fragments.UnitsAddFragment;
 import com.ews.fitnessmobile.fragments.UnitsFragment;
 import com.ews.fitnessmobile.model.Unidade;
@@ -34,12 +37,14 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
 
     private List<Unidade> unidades;
     private Context ctx;
-    private FragmentManager fragmentManager;
+    private FragmentActivity fragmentActivity;
+    private UnidadeDAO dao;
 
-    public UnitsAdapter(List<Unidade> unidades, Context ctx, FragmentManager fragmentManager) {
+    public UnitsAdapter(List<Unidade> unidades, Context ctx, FragmentActivity fragmentActivity) {
         this.unidades = unidades;
         this.ctx = ctx;
-        this.fragmentManager = fragmentManager;
+        this.fragmentActivity = fragmentActivity;
+        this.dao = new UnidadeDAO(ctx);
     }
 
     @Override
@@ -76,23 +81,39 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
                                 bundle.putParcelable(UnitsFragment.PUT_UNIT, unidade);
                                 UnitsAddFragment unitsFragment = new UnitsAddFragment();
                                 unitsFragment.setArguments(bundle);
-                                fragmentManager.beginTransaction()
+                                fragmentActivity.getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.content_main, unitsFragment)
                                         .addToBackStack(null)
                                         .commit();
                                 break;
                             case R.id.menuDelete:
-                                Toast.makeText(ctx.getApplicationContext(), "Menu Delete Selected", Toast.LENGTH_SHORT).show();
+                                new AlertDialog.Builder(fragmentActivity)
+                                    .setMessage(R.string.title_msg_cancel)
+                                    .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    })
+                                    .setPositiveButton(R.string.btn_confirm, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            String result = dao.delete(unidade);
+                                            Toast.makeText(ctx.getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                            update(dao.getAll());
+                                        }
+                                    }).show();
                                 break;
 
                             case R.id.menuCall:
                                 Intent intentCall = new Intent(Intent.ACTION_CALL);
                                 String phoneNumber = unidade.getTelefone().replaceAll("\\D", "");
                                 intentCall.setData(Uri.parse("tel:" + phoneNumber));
-                                if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                                    //ActivityCompat.requestPermissions(null, new String[]{Manifest.permission.CALL_PHONE});
+                                if (ActivityCompat.checkSelfPermission(fragmentActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                    ActivityCompat.requestPermissions(fragmentActivity, new String[]{Manifest.permission.CALL_PHONE}, 1);
+                                } else {
+                                    ctx.startActivity(intentCall);
                                 }
-                                ctx.startActivity(intentCall);
                                 break;
 
                             case R.id.menuShare :

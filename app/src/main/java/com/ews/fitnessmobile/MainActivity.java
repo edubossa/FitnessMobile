@@ -1,10 +1,13 @@
 package com.ews.fitnessmobile;
 
+import android.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -82,6 +85,13 @@ public class MainActivity extends AppCompatActivity
         addMenuItemInNavMenuDrawer();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, 1);
+        }
+    }
 
     private void addMenuItemInNavMenuDrawer() {
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
@@ -148,15 +158,8 @@ public class MainActivity extends AppCompatActivity
                     .commit();
                 break;
             case MAP:
-                Log.d(TAG_LOG, "Menu Student Selected !");
-                /*getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_main, new StudentFragment())
-                    .addToBackStack(null)
-                    .commit();*/
-
+                Log.d(TAG_LOG, "Menu MAP Selected !");
                 startActivity(new Intent(this, UnitsMapActivity.class));
-
-
                 break;
             case TRAINING:
                 Log.d(TAG_LOG, "Menu Treino Selected !");

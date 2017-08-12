@@ -34,7 +34,6 @@ public class UnidadeDAO {
     public String insertOrUpdate(Unidade unidade) {
         SQLiteDatabase database = this.db.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //if (unidade.getId() != null) values.put(COLUMN_ID, unidade.getId());
         values.put(COLUMN_NOME, unidade.getNome());
         values.put(COLUMN_CIDADE, unidade.getCidade());
         values.put(COLUMN_ENDERECO, unidade.getEndereco());
@@ -50,6 +49,13 @@ public class UnidadeDAO {
             result = database.update(TABLE, values, COLUMN_ID + "=?", new String[]{Integer.toString(unidade.getId())});
         }
         database.close();
+        return (result > 0) ? "Sucess" : "Error";
+    }
+
+    public String delete(Unidade unidade) {
+        SQLiteDatabase database = this.db.getWritableDatabase();
+        String[] args = {unidade.getId().toString()};
+        int result = database.delete(TABLE, "id = ?", args);
         return (result > 0) ? "Sucess" : "Error";
     }
 

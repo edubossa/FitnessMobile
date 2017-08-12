@@ -61,7 +61,7 @@ public class UnitsFragment extends Fragment {
                 new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
         this.recyclerView.addItemDecoration(itemDecoration);
 
-        this.unitsAdapter = new UnitsAdapter(new ArrayList<Unidade>(), view.getContext(), getFragmentManager());
+        this.unitsAdapter = new UnitsAdapter(new ArrayList<Unidade>(), view.getContext(), getActivity());
         this.recyclerView.setAdapter(this.unitsAdapter);
 
         this.unidadeDAO = new UnidadeDAO(view.getContext());
