@@ -5,13 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ews.fitnessmobile.fragments.UnitsFragment">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/unitsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </android.support.v7.widget.RecyclerView>
-
 
 </FrameLayout>

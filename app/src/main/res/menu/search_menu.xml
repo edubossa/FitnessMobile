@@ -9,4 +9,9 @@
         myapp:actionViewClass="android.widget.SearchView"
         android:title="Search" />
 
+    <item
+        android:id="@+id/viewMap"
+        android:title="Vizualizar no Mapa"
+         />
+
 </menu>

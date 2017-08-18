@@ -92,6 +92,21 @@ public class UnitsFragment extends Fragment implements SearchView.OnQueryTextLis
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.viewMap :
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.content_main, new UnitsMapActivity())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {

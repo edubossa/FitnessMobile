@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.ews.fitnessmobile.fragments.AboutFragment;
-import com.ews.fitnessmobile.fragments.StudentFragment;
 import com.ews.fitnessmobile.fragments.UnitsAddFragment;
 import com.ews.fitnessmobile.fragments.UnitsFragment;
 import com.ews.fitnessmobile.fragments.UnitsMapActivity;
@@ -35,9 +33,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG_LOG = "MainActivity";
-
     private Login login;
-
     public static FloatingActionButton fabAdd;
 
     @Override
@@ -71,14 +67,10 @@ public class MainActivity extends AppCompatActivity
 
         if (getIntent() != null) {
             this.login = getIntent().getParcelableExtra(LoginActivity.PUT_LOGIN);
-            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-            if (this.login.getRole().equals(Role.ADMIN)) {
-                tx.replace(R.id.content_main, new UnitsFragment());
-            } else {
-                tx.replace(R.id.content_main, new StudentFragment());
-            }
-            tx.addToBackStack(null);
-            tx.commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main, new UnitsFragment())
+                    .addToBackStack(null)
+                    .commit();
         }
 
         addMenuItemInNavMenuDrawer();
@@ -92,19 +84,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void addMenuItemInNavMenuDrawer() {
+    private void addMenuItemInNavMenuDrawer() { //TODO refactory pegar do arquivo activity_main_drawer.xml
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
         Menu menu = navView.getMenu();
-        if (this.login.getRole().equals(Role.ADMIN)) {
-            menu.add(1, UNITS.getItemId(), 1, getResources().getString(R.string.menu_units));
-            menu.add(1, MenuNavigationView.MAP.getItemId(), 2, getResources().getString(R.string.menu_show_map));
-        } else {
-            menu.add(1, MenuNavigationView.TRAINING.getItemId(), 3, getResources().getString(R.string.menu_training));
-            menu.add(1, MenuNavigationView.ACCOUNT.getItemId(), 4, getResources().getString(R.string.menu_account));
-        }
+        menu.add(1, UNITS.getItemId(), 1, getResources().getString(R.string.menu_units));
         menu.add(1, MenuNavigationView.ABOUT.getItemId(), 5, getResources().getString(R.string.menu_about));
         menu.add(1, MenuNavigationView.EXIT.getItemId(), 6, getResources().getString(R.string.menu_exit));
-
     }
 
     @Override
@@ -115,32 +100,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        if (!this.login.getRole().equals(Role.ADMIN)) {
-            //getMenuInflater().inflate(R.menu.main, menu);
-            fabAdd.setVisibility(FloatingActionButton.INVISIBLE);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -156,16 +115,6 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.content_main, new UnitsFragment())
                     .addToBackStack(null)
                     .commit();
-                break;
-            case MAP:
-                Log.d(TAG_LOG, "Menu MAP Selected !");
-                startActivity(new Intent(this, UnitsMapActivity.class));
-                break;
-            case TRAINING:
-                Log.d(TAG_LOG, "Menu Treino Selected !");
-                break;
-            case ACCOUNT:
-                Log.d(TAG_LOG, "Menu Conta Selected !");
                 break;
             case ABOUT:
                 Log.d(TAG_LOG, "Menu About Selected !");
