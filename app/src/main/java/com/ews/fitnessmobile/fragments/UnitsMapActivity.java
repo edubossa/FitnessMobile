@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,7 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 public class UnitsMapActivity extends Fragment implements OnMapReadyCallback,
-        GoogleMap.OnMarkerClickListener {
+        GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationButtonClickListener {
 
     MapView mMapView;
     private GoogleMap googleMap;
@@ -41,7 +43,7 @@ public class UnitsMapActivity extends Fragment implements OnMapReadyCallback,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_units_map, container, false);
+        final View view = inflater.inflate(R.layout.activity_units_map, container, false);
         this.ctx = view.getContext();
         this.dao = new UnidadeDAO(this.ctx);
 
@@ -63,6 +65,7 @@ public class UnitsMapActivity extends Fragment implements OnMapReadyCallback,
         return view;
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -74,8 +77,20 @@ public class UnitsMapActivity extends Fragment implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap.setOnMarkerClickListener(this); //OBS aqui tenho que adicionar os eventos que quero interceptar de forma implicita
+        googleMap.setOnMyLocationButtonClickListener(this);
         this.googleMap = googleMap;
         loadUnits();
+        enableMyLocation();
+    }
+
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else if (this.googleMap != null) {
+            // Access to the location has been granted to the app.
+            this.googleMap.setMyLocationEnabled(true);
+        }
     }
 
     private void loadUnits() {
@@ -144,4 +159,10 @@ public class UnitsMapActivity extends Fragment implements OnMapReadyCallback,
         mMapView.onLowMemory();
     }
 
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Log.d("[UnitsMapActivity]", "onMyLocationButtonClick");
+        return false;
+    }
 }

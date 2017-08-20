@@ -1,6 +1,7 @@
 package com.ews.fitnessmobile.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
-import com.ews.fitnessmobile.MainActivity;
 import com.ews.fitnessmobile.R;
+import com.ews.fitnessmobile.UnitsAddActivity;
 import com.ews.fitnessmobile.adapter.UnitsAdapter;
 import com.ews.fitnessmobile.api.APIUtils;
 import com.ews.fitnessmobile.api.FitnessAPI;
@@ -30,7 +31,6 @@ import java.util.List;
 
 public class UnitsFragment extends Fragment implements SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
-    private static final String TAG_LOG = "[UnitsFragment]";
     public static final String PUT_UNIT = "UNIT";
 
     private RecyclerView recyclerView;
@@ -40,20 +40,19 @@ public class UnitsFragment extends Fragment implements SearchView.OnQueryTextLis
     private Unidade unidade;
     private Context ctx;
     private ImageView imgViewOptions;
-
     private List<Unidade> unidades;
+    private FloatingActionButton addFitness;
 
 
     public UnitsFragment() {
         // Required empty public constructor
         this.fitnessAPI = APIUtils.getFitnessAPI();
-        MainActivity.fabAdd.setVisibility(FloatingActionButton.VISIBLE);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_units, container, false);
+        final View view = inflater.inflate(R.layout.fragment_units, container, false);
         this.ctx = view.getContext();
 
         this.recyclerView = (RecyclerView) view.findViewById(R.id.unitsRecyclerView);
@@ -75,6 +74,14 @@ public class UnitsFragment extends Fragment implements SearchView.OnQueryTextLis
 
         setHasOptionsMenu(true);
 
+        this.addFitness = (FloatingActionButton) view.findViewById(R.id.addFitness);
+        this.addFitness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ctx, UnitsAddActivity.class));
+            }
+        });
+
         return view;
     }
 
@@ -88,7 +95,7 @@ public class UnitsFragment extends Fragment implements SearchView.OnQueryTextLis
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Search"); //TODO alterar para buscar so string com suporte aos idiomas portugues e ingles
+        searchView.setQueryHint(getString(R.string.search));
         super.onCreateOptionsMenu(menu, inflater);
     }
 

@@ -7,10 +7,12 @@
         android:orderInCategory="1"
         myapp:showAsAction="always"
         myapp:actionViewClass="android.widget.SearchView"
-        android:title="Search" />
+        android:title="@string/search" />
 
     <item
         android:id="@+id/viewMap"
+        android:icon="@drawable/ic_map"
+        myapp:showAsAction="always"
         android:title="Vizualizar no Mapa"
          />
 

@@ -9,7 +9,7 @@
     <string name="navigation_drawer_close">Fechar gaveta de navegação</string>
     <string name="navigation_drawer_open">Abrir a gaveta de navegação</string>
     <string name="action_settings">Adicionar</string>
-    <string name="menu_units">Academias</string>
+    <string name="menu_fitness">Academias</string>
     <string name="menu_student">Alunos</string>
     <string name="menu_training">Meus Treinos</string>
     <string name="menu_account">Minha Conta</string>
@@ -34,4 +34,5 @@
     <string name="title_msg_cancel">Tem certeza que quer cancelar ?</string>
     <string name="btn_confirm">CONFIRMAR</string>
     <string name="btn_cancel">CANCELAR</string>
+    <string name="search">Buscar</string>
 </resources>

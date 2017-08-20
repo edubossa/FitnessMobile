@@ -22,7 +22,8 @@ import rx.schedulers.Schedulers;
 
 public class SplashActivity extends AppCompatActivity {
 
-    public static final int SPLASH_DELAY = 3500;
+    //public static final int SPLASH_DELAY = 3500;
+    public static final int SPLASH_DELAY = 500;
 
     @BindView(R.id.fitnessSplash)
     ImageView imageView;

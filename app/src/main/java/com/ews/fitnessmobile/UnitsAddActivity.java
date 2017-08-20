@@ -1,25 +1,22 @@
-package com.ews.fitnessmobile.fragments;
+package com.ews.fitnessmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ews.fitnessmobile.MainActivity;
-import com.ews.fitnessmobile.R;
 import com.ews.fitnessmobile.dao.UnidadeDAO;
+import com.ews.fitnessmobile.fragments.UnitsFragment;
 import com.ews.fitnessmobile.model.Unidade;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UnitsAddFragment extends Fragment {
+public class UnitsAddActivity extends AppCompatActivity {
 
     @BindView(R.id.etName) EditText etName;
     @BindView(R.id.etCity) EditText etCity;
@@ -28,26 +25,23 @@ public class UnitsAddFragment extends Fragment {
     @BindView(R.id.etScheduleOperation) EditText etScheduleOperation;
     @BindView(R.id.etLatitude) EditText etLatitude;
     @BindView(R.id.etLongitude) EditText etLongitude;
-    @BindView(R.id.btSend) Button btSend;
+    @BindView(R.id.btSend)
+    Button btSend;
 
     private UnidadeDAO unidadeDAO;
     private Unidade unidade;
 
-    public UnitsAddFragment() {
-        // Required empty public constructor
-        MainActivity.fabAdd.setVisibility(FloatingActionButton.INVISIBLE);
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_units_add, container, false);
-        ButterKnife.bind(this, view);
-        this.unidadeDAO = new UnidadeDAO(view.getContext());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_units_add);
+        ButterKnife.bind(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (getArguments() != null) {
-            this.unidade = getArguments().getParcelable(UnitsFragment.PUT_UNIT);
+        this.unidadeDAO = new UnidadeDAO(this);
+
+        if (getIntent() != null && getIntent().getParcelableExtra(UnitsFragment.PUT_UNIT) != null) {
+            this.unidade = getIntent().getParcelableExtra(UnitsFragment.PUT_UNIT); //getArguments().getParcelable(UnitsFragment.PUT_UNIT);
             etName.setText(unidade.getNome());
             etCity.setText(unidade.getCidade());
             etAddress.setText(unidade.getEndereco());
@@ -60,7 +54,7 @@ public class UnitsAddFragment extends Fragment {
         this.btSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("UnitsAddFragment", "onClick");
+                Log.d("UnitsAddActivity", "onClick");
                 if (unidade == null) unidade = new Unidade();
                 unidade.setNome(etName.getText().toString());
                 unidade.setCidade(etCity.getText().toString());
@@ -71,15 +65,10 @@ public class UnitsAddFragment extends Fragment {
                 unidade.setLongitude(etLongitude.getText().toString());
 
                 String result = unidadeDAO.insertOrUpdate(unidade);
-                Toast.makeText(view.getContext(), result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.content_main, new UnitsFragment())
-                        .addToBackStack(null)
-                        .commit();
+                startActivity(new Intent(UnitsAddActivity.this, MainActivity.class));
             }
         });
-        return view;
     }
-
 }

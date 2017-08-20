@@ -7,9 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,8 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ews.fitnessmobile.R;
+import com.ews.fitnessmobile.UnitsAddActivity;
 import com.ews.fitnessmobile.dao.UnidadeDAO;
-import com.ews.fitnessmobile.fragments.UnitsAddFragment;
 import com.ews.fitnessmobile.fragments.UnitsFragment;
 import com.ews.fitnessmobile.model.Unidade;
 
@@ -70,6 +71,9 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
                 PopupMenu popup = new PopupMenu(ctx, holder.imgViewOptions);
                 popup.inflate(R.menu.unit_menu);
 
+                MenuPopupHelper menuHelper = new MenuPopupHelper(ctx, (MenuBuilder) popup.getMenu(), holder.imgViewOptions);
+                menuHelper.setForceShowIcon(true);
+
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -77,14 +81,9 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
                         switch (item.getItemId()) {
 
                             case R.id.menuAlter:
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelable(UnitsFragment.PUT_UNIT, unidade);
-                                UnitsAddFragment unitsFragment = new UnitsAddFragment();
-                                unitsFragment.setArguments(bundle);
-                                fragmentActivity.getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.content_main, unitsFragment)
-                                        .addToBackStack(null)
-                                        .commit();
+                                Intent intentUnitsAdd = new Intent(ctx, UnitsAddActivity.class);
+                                intentUnitsAdd.putExtra(UnitsFragment.PUT_UNIT, unidade);
+                                fragmentActivity.startActivity(intentUnitsAdd);
                                 break;
                             case R.id.menuDelete:
                                 new AlertDialog.Builder(fragmentActivity)
@@ -129,7 +128,8 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
                     }
                 });
 
-                popup.show();
+
+                menuHelper.show();
             }
         });
 
@@ -147,7 +147,6 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
 
     static class UnitsAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        //final ImageView imgAcademia;
         final TextView tvNome;
         final TextView tvCidade;
         final TextView tvEndereco;
@@ -157,7 +156,6 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsAdapter
 
         public UnitsAdapterViewHolder(View itemView) {
             super(itemView);
-            //this.imgAcademia = (ImageView) itemView.findViewById(R.id.imgAcademia);
             this.tvNome = (TextView) itemView.findViewById(R.id.tvNome);
             this.tvCidade = (TextView) itemView.findViewById(R.id.tvCidade);
             this.tvEndereco = (TextView) itemView.findViewById(R.id.tvEndereco);

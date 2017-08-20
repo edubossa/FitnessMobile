@@ -10,7 +10,7 @@
 
     <string name="action_settings">Add</string>
     <string name="tx_keep_connected">Keep Connected</string>
-    <string name="menu_units">Fitness center</string>
+    <string name="menu_fitness">Fitness center</string>
     <string name="menu_student">Student</string>
     <string name="menu_training">My Trainning</string>
     <string name="menu_account">My Account</string>
@@ -43,6 +43,7 @@
     <string name="title_msg_cancel">Are you sure you want to cancel?</string>
     <string name="btn_confirm">CONFIRM</string>
     <string name="btn_cancel">CANCEL</string>
+    <string name="search">Search</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
