@@ -23,4 +23,15 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="FitnessCustomButton" parent="AppTheme">
+        <item name="android:layout_width">@dimen/button_layout_width</item>
+        <item name="android:layout_height">@dimen/button_layout_height</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/size_default_margin</item>
+        <item name="android:textColor">#d50000</item>
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:textSize">@dimen/size_default_text</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>

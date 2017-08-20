@@ -22,8 +22,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
-import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -63,8 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-
-        //-------- TODO Utilizado pq eu quero enviar dados pro analitic manualmente
+        //Utilizado pq eu quero enviar dados pro analitic manualmente
         this.firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         //se cadastrando em um topico de forma fixa
@@ -165,16 +162,4 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAnalytics.logEvent("login", bundle);
     }
 
-
-
-    //TODO BOTAO PRA TEST NO ANALITIC
-    public void crashFirebase(View view) {
-        int n = 2 / 0;
-    }
-
-    public void testFirebase(View view) {
-        Bundle bundle = new Bundle();
-        bundle.putString("TOKEN", UUID.randomUUID().toString());
-        firebaseAnalytics.logEvent("testFirebase", bundle);
-    }
 }
