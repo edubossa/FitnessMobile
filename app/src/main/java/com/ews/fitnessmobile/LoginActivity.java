@@ -3,12 +3,12 @@ package com.ews.fitnessmobile;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.ews.fitnessmobile.dao.LoginDAO;
 import com.ews.fitnessmobile.model.Login;
@@ -44,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.etPassword)
     EditText etPassword;
+
+    @BindView(R.id.tilPassword)
+    TextInputLayout tilPassword;
 
     @BindView(R.id.cbKeepConnected)
     CheckBox cbKeepConnected;
@@ -155,7 +158,8 @@ public class LoginActivity extends AppCompatActivity {
             if (cbKeepConnected.isChecked()) keepConnected();
             initApp();
         } else {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.tx_credentials_invalid), Toast.LENGTH_SHORT).show();
+            this.tilPassword.setErrorEnabled(true);
+            this.tilPassword.setError(getResources().getString(R.string.tx_credentials_invalid));
             bundle.putString("ERROR", getResources().getString(R.string.tx_credentials_invalid));
         }
         bundle.putString("TYPE_LOGIN", "APPLICATION");

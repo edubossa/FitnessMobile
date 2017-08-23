@@ -21,9 +21,13 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class ClientFirebaseMessagingService extends FirebaseMessagingService {
 
+    private static final String TAG = "ClientFirebaseMessaging";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
+        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
         //Obtemm parametros da msg, caso precise tratar na sua regra de negocio
         if (remoteMessage.getData().size() > 0) {

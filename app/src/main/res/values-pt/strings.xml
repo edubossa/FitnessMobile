@@ -35,4 +35,6 @@
     <string name="btn_confirm">CONFIRMAR</string>
     <string name="btn_cancel">CANCELAR</string>
     <string name="search">Buscar</string>
+    <string name="error_msg_required">O CAMPO ${field} É OBRIGATÓRIO</string>
+    <string name="error_msg_min_required">O TAMANHO MINÍMO REQUERIDO E DE</string>
 </resources>
