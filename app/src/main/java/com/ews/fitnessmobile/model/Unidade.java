@@ -21,6 +21,7 @@ public class Unidade  implements Parcelable{
     public Unidade() {}
 
     protected Unidade(Parcel in) {
+        id = in.readInt();
         nome = in.readString();
         cidade = in.readString();
         endereco = in.readString();
@@ -33,6 +34,7 @@ public class Unidade  implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(nome);
         dest.writeString(cidade);
         dest.writeString(endereco);
