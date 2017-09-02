@@ -110,7 +110,7 @@
 
 
     <Button
-        style="@style/FitnessCustomButton"
+        style="@style/CustomButtonRed"
         android:id="@+id/btSend"
         android:text="@string/send"/>
 

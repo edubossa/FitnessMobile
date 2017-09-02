@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+
         //Utilizado pq eu quero enviar dados pro analitic manualmente
         this.firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 

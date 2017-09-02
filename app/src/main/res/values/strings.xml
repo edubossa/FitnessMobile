@@ -47,5 +47,6 @@
     <string name="error_msg_required">THE ${field} IS MANDATORY</string>
     <string name="error_msg_min_required">THE MINIMUM SIZE REQUIRED IS</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

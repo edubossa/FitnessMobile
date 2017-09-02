@@ -1,61 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
+    android:background="@drawable/login_background"
     android:padding="@dimen/size_default_padding"
-    android:orientation="vertical"
     tools:context="com.ews.fitnessmobile.LoginActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_username"/>
-
-    </android.support.design.widget.TextInputLayout>
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_password"/>
-
-    </android.support.design.widget.TextInputLayout>
-
-    <CheckBox
-        android:id="@+id/cbKeepConnected"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tx_keep_connected"/>
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-    <Button
-        style="@style/FitnessCustomButton"
-        android:text="@string/tx_login"
-        android:onClick="login"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/CustomEditText">
+
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/CustomEditText"
+                android:hint="@string/hint_username"/>
+
+        </android.support.design.widget.TextInputLayout>
 
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/loginFacebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/CustomEditText">
 
-</LinearLayout>
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                style="@style/CustomEditText"
+                android:hint="@string/hint_password"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/cbKeepConnected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/CustomCheckBox"
+            android:text="@string/tx_keep_connected"/>
+
+        <Button
+            style="@style/CustomButtonWhite"
+            android:text="@string/tx_login"
+            android:onClick="login"/>
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/loginFacebook"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
