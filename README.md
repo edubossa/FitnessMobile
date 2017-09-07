@@ -31,4 +31,10 @@ Telas da aplicação
 
 Contato
 --------------
-> RM 31773 | edubossa@gmail.com | (11) 94606-5413 
+> RM 31773 | edubossa@gmail.com | (11) 94606-5413
+ 
+
+SlideShare 
+--------------
+
+[https://pt.slideshare.net/edubossa/android-fiap-13mob](https://pt.slideshare.net/edubossa/android-fiap-13mob)
