@@ -1,118 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:orientation="vertical"
-    tools:context="com.ews.fitnessmobile.UnitsAddActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilName"
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical"
+        tools:context="com.ews.fitnessmobile.UnitsAddActivity">
 
-        <EditText
-            android:id="@+id/etName"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_name"/>
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_default_text"
+                android:hint="@string/hint_name"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etCity"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilCity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_city"/>
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/etCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_default_text"
+                android:hint="@string/hint_city"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etAddress"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_address"/>
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_default_text"
+                android:hint="@string/hint_address"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etPhone"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilPhone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_phone"/>
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_default_text"
+                android:hint="@string/hint_phone"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilScheduleOperation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etScheduleOperation"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilScheduleOperation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_schedule_operation"/>
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/etScheduleOperation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_default_text"
+                android:hint="@string/hint_schedule_operation"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilLatitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etLatitude"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilLatitude"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal|numberSigned"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_latitude"/>
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/etLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal|numberSigned"
+                android:textSize="@dimen/size_default_text"
+                android:hint="@string/hint_latitude"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilLongitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etLongitude"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilLongitude"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal|numberSigned"
-            android:textSize="@dimen/size_default_text"
-            android:hint="@string/hint_longitude"/>
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/etLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal|numberSigned"
+                android:textSize="@dimen/size_default_text"
+                android:hint="@string/hint_longitude"/>
+
+        </android.support.design.widget.TextInputLayout>
 
 
-    <Button
-        style="@style/CustomButtonRed"
-        android:id="@+id/btSend"
-        android:text="@string/send"/>
+        <Button
+            style="@style/CustomButtonRed"
+            android:id="@+id/btSend"
+            android:text="@string/send"/>
 
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
